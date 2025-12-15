@@ -1,0 +1,15 @@
+<!-- input-form.component.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label for="ral">RAL (€)</label>
+  <input type="number" formControlName="ral" id="ral" required>
+
+  <label for="dependents">Number of dependents</label>
+  <input type="number" formControlName="dependents" id="dependents">
+
+  <button type="submit" [disabled]="form.invalid">Calculate Net Salary</button>
+</form>
+
+<div *ngIf="netSalary !== null">
+  <h3>Net Salary: €{{ netSalary | number:'1.2-2' }}</h3>
+  <p>Monthly Net: €{{ (netSalary / 12) | number:'1.2-2' }}</p>
+</div>
