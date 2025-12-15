@@ -1,54 +1,72 @@
-<form [formGroup]="salaryForm" (ngSubmit)="calculate()">
-  <div>
-    <label>RAL (€):</label>
-    <input type="number" formControlName="ral" />
-  </div>
-  <div>
-    <label>Mensilità:</label>
-    <input type="number" formControlName="mensilita" />
-  </div>
-  <div>
-    <label>Aliquota INPS:</label>
-    <input type="number" step="0.001" formControlName="aliquotaINPS" />
-  </div>
-  <div>
-    <label>Addizionale Regionale:</label>
-    <input type="number" step="0.001" formControlName="addizionaleRegionale" />
-  </div>
-  <div>
-    <label>Addizionale Comunale:</label>
-    <input type="number" step="0.001" formControlName="addizionaleComunale" />
-  </div>
-  <div>
-    <label>Coniuge a carico:</label>
-    <input type="checkbox" formControlName="coniugeACarico" />
-  </div>
-  <div>
-    <label>Figli a carico:</label>
-    <input type="number" formControlName="figliACarico" />
-  </div>
-  <div>
-    <label>Figli disabili:</label>
-    <input type="number" formControlName="figliDisabili" />
-  </div>
-  <div>
-    <label>Altri familiari a carico:</label>
-    <input type="number" formControlName="altriFamiliariACarico" />
-  </div>
-  <div>
-    <label>Bonus Vari (€):</label>
-    <input type="number" formControlName="bonusVari" />
+<form [formGroup]="salaryForm" (ngSubmit)="calculate()" class="salary-form">
+  <h2>Calcolo Netto da RAL</h2>
+
+  <div class="form-grid">
+    <div class="form-field">
+      <label>RAL (€)</label>
+      <input type="number" formControlName="ral" />
+    </div>
+
+    <div class="form-field">
+      <label>Mensilità</label>
+      <input type="number" formControlName="mensilita" />
+    </div>
+
+    <div class="form-field">
+      <label>Aliquota INPS</label>
+      <input type="number" step="0.001" formControlName="aliquotaINPS" />
+    </div>
+
+    <div class="form-field">
+      <label>Addizionale Regionale</label>
+      <input type="number" step="0.001" formControlName="addizionaleRegionale" />
+    </div>
+
+    <div class="form-field">
+      <label>Addizionale Comunale</label>
+      <input type="number" step="0.001" formControlName="addizionaleComunale" />
+    </div>
+
+    <div class="form-field checkbox">
+      <label>
+        <input type="checkbox" formControlName="coniugeACarico" />
+        Coniuge a carico
+      </label>
+    </div>
+
+    <div class="form-field">
+      <label>Figli a carico</label>
+      <input type="number" formControlName="figliACarico" />
+    </div>
+
+    <div class="form-field">
+      <label>Figli disabili</label>
+      <input type="number" formControlName="figliDisabili" />
+    </div>
+
+    <div class="form-field">
+      <label>Altri familiari a carico</label>
+      <input type="number" formControlName="altriFamiliariACarico" />
+    </div>
+
+    <div class="form-field">
+      <label>Bonus vari (€)</label>
+      <input type="number" formControlName="bonusVari" />
+    </div>
   </div>
 
-  <button type="submit">Calcola Netto</button>
+  <button type="submit" class="submit-btn">Calcola Netto</button>
 </form>
 
-<div *ngIf="result">
-  <h3>Risultato:</h3>
-  <p>Netto Annuo: € {{ result.nettoAnnuo.toFixed(2) }}</p>
-  <p>Netto Mensile: € {{ result.nettoMensile.toFixed(2) }}</p>
-  <p>Contributi INPS: € {{ result.contributiINPS.toFixed(2) }}</p>
-  <p>IRPEF Netta: € {{ result.irpefNetta.toFixed(2) }}</p>
-  <p>Addizionali: € {{ result.addizionali.toFixed(2) }}</p>
-  <p>Detrazione Totale: € {{ result.detrazioneFamiliari.toFixed(2) }}</p>
+<div *ngIf="result" class="result-box" #resultSection>
+  <h3>Risultato</h3>
+
+  <div class="result-grid">
+    <p><strong>Netto Annuo:</strong> € {{ result.nettoAnnuo.toFixed(2) }}</p>
+    <p><strong>Netto Mensile:</strong> € {{ result.nettoMensile.toFixed(2) }}</p>
+    <p><strong>Contributi INPS:</strong> € {{ result.contributiINPS.toFixed(2) }}</p>
+    <p><strong>IRPEF Netta:</strong> € {{ result.irpefNetta.toFixed(2) }}</p>
+    <p><strong>Addizionali:</strong> € {{ result.addizionali.toFixed(2) }}</p>
+    <p><strong>Detrazioni Totali:</strong> € {{ result.detrazioneFamiliari.toFixed(2) }}</p>
+  </div>
 </div>

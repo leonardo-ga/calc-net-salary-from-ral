@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CalculatorService } from '../../services/calculator.service';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,8 @@ import { CalcOutput } from '../../models/calc-output';
   styleUrl: './input-form.component.css'
 })
 export class InputFormComponent {
+
+  @ViewChild('resultSection') resultSection!: ElementRef;
 
   salaryForm: FormGroup;
   result?: CalcOutput;
@@ -34,6 +36,20 @@ export class InputFormComponent {
   calculate() {
     if (this.salaryForm.valid) {
       this.result = this.netSalaryService.calcolaNetto(this.salaryForm.value);
+
+      // wait for DOM update, then scroll
+      setTimeout(() => {
+        this.scrollToResult();
+      });
+    }
+  }
+
+  private scrollToResult() {
+    if (this.resultSection) {
+      this.resultSection.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   }
 
