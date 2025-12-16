@@ -4,10 +4,17 @@ import { CalculatorService } from '../../services/calculator.service';
 import { CommonModule } from '@angular/common';
 import { CalcOutput } from '../../models/calc-output';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClient } from '@angular/common/http';
+import { AddizionaleComunale } from '../../models/addizionale-comunale';
+import { map, Observable, startWith } from 'rxjs';
+
 @Component({
   selector: 'app-input-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule],
   templateUrl: './input-form.component.html',
   styleUrl: './input-form.component.css'
 })
@@ -15,21 +22,59 @@ export class InputFormComponent {
 
   @ViewChild('resultSection') resultSection!: ElementRef;
 
+  regioni: string[] = [
+    'Abruzzo',
+    'Basilicata',
+    'Calabria',
+    'Campania',
+    'Emilia-Romagna',
+    'Friuli-Venezia Giulia',
+    'Lazio',
+    'Liguria',
+    'Lombardia',
+    'Marche',
+    'Molise',
+    'Piemonte',
+    'Puglia',
+    'Sardegna',
+    'Sicilia',
+    'Toscana',
+    'Trentino-Alto Adige',
+    'Umbria',
+    'Valle d\'Aosta',
+    'Veneto'
+  ];
+  comuni!: AddizionaleComunale[];
+  comuneCtrl = new FormControl('');
+  filteredComuni!: Observable<AddizionaleComunale[]>;
+  comune: AddizionaleComunale | undefined;
+
   salaryForm: FormGroup;
   result?: CalcOutput;
 
-  constructor(private fb: FormBuilder, private netSalaryService: CalculatorService) {
+  constructor(private fb: FormBuilder,
+    private netSalaryService: CalculatorService,
+    private http: HttpClient
+  ) {
     this.salaryForm = this.fb.group({
       ral: [40000, [Validators.required, Validators.min(0)]],
       mensilita: [13, [Validators.required]],
       aliquotaINPS: [0.0919],
-      addizionaleRegionale: [0.015],
-      addizionaleComunale: [0.008],
+      regione: ['', Validators.required],
+      comune: [this.comune, Validators.required],
       coniugeACarico: [false],
       figliACarico: [0],
       figliDisabili: [0],
       altriFamiliariACarico: [0],
       bonusVari: [0]
+    });
+
+    this.http.get<any[]>('assets/tasse/addizionale-comunale.json').subscribe(data => {
+      this.comuni = data;
+      this.filteredComuni = this.comuneCtrl.valueChanges.pipe(
+        startWith(''),
+        map(value => this.filterComuni(value || ''))
+      );
     });
   }
 
@@ -42,6 +87,21 @@ export class InputFormComponent {
         this.scrollToResult();
       });
     }
+  }
+
+  onComuneSelected(comune: any) {
+    this.comune = comune;
+    this.salaryForm.patchValue({ comune: this.comune });
+  }
+
+  displayComune(comune: any): string {
+    return comune ? (comune.comune + " (" + comune.provincia + ")") : '';
+  }
+
+
+  private filterComuni(value: string): any[] {
+    const filterValue = value.toLowerCase();
+    return this.comuni.filter(c => c.comune.toLowerCase().includes(filterValue));
   }
 
   private scrollToResult() {

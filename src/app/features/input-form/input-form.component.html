@@ -18,14 +18,33 @@
     </div>
 
     <div class="form-field">
-      <label>Addizionale Regionale</label>
-      <input type="number" step="0.001" formControlName="addizionaleRegionale" />
+      <label>Regione</label>
+      <select formControlName="regione">
+        <option value="" disabled>Seleziona regione</option>
+        <option *ngFor="let regione of regioni" [value]="regione">
+          {{ regione }}
+        </option>
+      </select>
     </div>
 
+
     <div class="form-field">
-      <label>Addizionale Comunale</label>
-      <input type="number" step="0.001" formControlName="addizionaleComunale" />
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comune di residenza</mat-label>
+
+        <input type="text" matInput [formControl]="comuneCtrl" [matAutocomplete]="auto" />
+
+        <mat-autocomplete 
+              #auto="matAutocomplete" 
+              [displayWith]="displayComune"
+              (optionSelected)="onComuneSelected($event.option.value)">
+          <mat-option *ngFor="let comune of filteredComuni | async" [value]="comune">
+            {{ comune.comune }} ({{ comune.provincia }})
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
+
 
     <div class="form-field checkbox">
       <label>
@@ -62,11 +81,11 @@
   <h3>Risultato</h3>
 
   <div class="result-grid">
-    <p><strong>Netto Annuo:</strong> € {{ result.nettoAnnuo.toFixed(2) }}</p>
-    <p><strong>Netto Mensile:</strong> € {{ result.nettoMensile.toFixed(2) }}</p>
-    <p><strong>Contributi INPS:</strong> € {{ result.contributiINPS.toFixed(2) }}</p>
-    <p><strong>IRPEF Netta:</strong> € {{ result.irpefNetta.toFixed(2) }}</p>
-    <p><strong>Addizionali:</strong> € {{ result.addizionali.toFixed(2) }}</p>
-    <p><strong>Detrazioni Totali:</strong> € {{ result.detrazioneFamiliari.toFixed(2) }}</p>
+    <p><strong>Netto Annuo:</strong> € {{ result.nettoAnnuo.toFixed(0) }}</p>
+    <p><strong>Netto Mensile:</strong> € {{ result.nettoMensile.toFixed(0) }}</p>
+    <p><strong>Contributi INPS:</strong> € {{ result.contributiINPS.toFixed(0) }}</p>
+    <p><strong>Ritenute IRPEF:</strong> € {{ result.irpefNetta.toFixed(0) }}</p>
+    <p><strong>Addizionali:</strong> € {{ result.addizionali.toFixed(0) }}</p>
+    <p><strong>Detrazioni Totali:</strong> € {{ result.detrazioni.toFixed(0) }}</p>
   </div>
 </div>

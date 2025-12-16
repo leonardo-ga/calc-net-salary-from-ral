@@ -1,0 +1,95 @@
+{
+  "Abruzzo": [
+    { "limite": 28000, "aliquota": 0.0167 },
+    { "limite": 50000, "aliquota": 0.0287 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Basilicata": [
+    { "limite": null, "aliquota": 0.0123 }
+  ],
+  "Calabria": [
+    { "limite": null, "aliquota": 0.0173 }
+  ],
+  "Campania": [
+    { "limite": 15000, "aliquota": 0.0173 },
+    { "limite": 28000, "aliquota": 0.0296 },
+    { "limite": 50000, "aliquota": 0.0320 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Emilia-Romagna": [
+    { "limite": 15000, "aliquota": 0.0133 },
+    { "limite": 28000, "aliquota": 0.0193 },
+    { "limite": 50000, "aliquota": 0.0293 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Friuli-Venezia Giulia": [
+    { "limite": 15000, "aliquota": 0.0070 },
+    { "limite": null, "aliquota": 0.0123 }
+  ],
+  "Lazio": [
+    { "limite": 15000, "aliquota": 0.0173 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Liguria": [
+    { "limite": 28000, "aliquota": 0.0123 },
+    { "limite": 50000, "aliquota": 0.0318 },
+    { "limite": null, "aliquota": 0.0323 }
+  ],
+  "Lombardia": [
+    { "limite": 15000, "aliquota": 0.0123 },
+    { "limite": 28000, "aliquota": 0.0158 },
+    { "limite": 50000, "aliquota": 0.0172 },
+    { "limite": null, "aliquota": 0.0173 }
+  ],
+  "Marche": [
+    { "limite": 15000, "aliquota": 0.0123 },
+    { "limite": 28000, "aliquota": 0.0153 },
+    { "limite": 50000, "aliquota": 0.0170 },
+    { "limite": null, "aliquota": 0.0173 }
+  ],
+  "Molise": [
+    { "limite": 15000, "aliquota": 0.0173 },
+    { "limite": 28000, "aliquota": 0.0193 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Piemonte": [
+    { "limite": 15000, "aliquota": 0.0162 },
+    { "limite": 28000, "aliquota": 0.0213 },
+    { "limite": 50000, "aliquota": 0.0275 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Puglia": [
+    { "limite": 15000, "aliquota": 0.0133 },
+    { "limite": 28000, "aliquota": 0.0143 },
+    { "limite": 50000, "aliquota": 0.0163 },
+    { "limite": null, "aliquota": 0.0185 }
+  ],
+  "Sardegna": [
+    { "limite": null, "aliquota": 0.0123 }
+  ],
+  "Sicilia": [
+    { "limite": null, "aliquota": 0.0123 }
+  ],
+  "Toscana": [
+    { "limite": 15000, "aliquota": 0.0142 },
+    { "limite": 28000, "aliquota": 0.0143 },
+    { "limite": 50000, "aliquota": 0.0332 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Trentino-Alto Adige": [
+    { "limite": 50000, "aliquota": 0.0123 },
+    { "limite": null, "aliquota": 0.0173 }
+  ],
+  "Umbria": [
+    { "limite": 15000, "aliquota": 0.0173 },
+    { "limite": 28000, "aliquota": 0.0302 },
+    { "limite": 50000, "aliquota": 0.0312 },
+    { "limite": null, "aliquota": 0.0333 }
+  ],
+  "Valle d'Aosta": [
+    { "limite": null, "aliquota": 0.0123 }
+  ],
+  "Veneto": [
+    { "limite": null, "aliquota": 0.0123 }
+  ]
+}

@@ -1,9 +1,11 @@
+import { AddizionaleComunale } from "./addizionale-comunale";
+
 export interface CalcInput {
     ral: number;
     mensilita?: number;
     aliquotaINPS?: number;
-    addizionaleRegionale?: number;
-    addizionaleComunale?: number;
+    regione?: string;
+    comune?: AddizionaleComunale;
     coniugeACarico?: boolean;
     figliACarico?: number;
     figliDisabili?: number;
