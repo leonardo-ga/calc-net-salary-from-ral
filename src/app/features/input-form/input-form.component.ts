@@ -45,7 +45,7 @@ export class InputFormComponent {
     'Veneto'
   ];
   comuni!: AddizionaleComunale[];
-  comuneCtrl = new FormControl('');
+  comuneCtrl = new FormControl<AddizionaleComunale | string | null>(null);
   filteredComuni!: Observable<AddizionaleComunale[]>;
   comune: AddizionaleComunale | undefined;
 
@@ -73,7 +73,11 @@ export class InputFormComponent {
       this.comuni = data;
       this.filteredComuni = this.comuneCtrl.valueChanges.pipe(
         startWith(''),
-        map(value => this.filterComuni(value || ''))
+        map(value => {
+          if (!value) return '';
+          return typeof value === 'string' ? value : value.comune;
+        }),
+        map(name => name ? this.filterComuni(name) : this.comuni.slice())
       );
     });
   }
