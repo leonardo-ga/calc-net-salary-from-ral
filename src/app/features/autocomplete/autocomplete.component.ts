@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -20,6 +20,12 @@ export class AutocompleteComponent {
   filteredOptions: any[] = [];
   showDropdown = false;
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['options'] && changes['options'].currentValue) {
+      this.onInputChange();
+    }
+  }
+
   onInputChange() {
     const val = this.inputValue.toLowerCase();
     this.filteredOptions = this.options.filter(o =>
@@ -28,13 +34,19 @@ export class AutocompleteComponent {
   }
 
   selectOption(option: any) {
-    this.inputValue = this.displayFields.map(f => option[f]).join(' (') + ')';
+    if (this.displayFields.length === 1 && this.displayFields[0] === 'regione')
+      this.inputValue = this.displayFields.map(f => option[f]).join('')
+    else
+      this.inputValue = this.displayFields.map(f => option[f]).join(' (') + ')';
     this.showDropdown = false;
     this.selection.emit(option);
   }
 
   displayOption(option: any) {
-    return this.displayFields.map(f => option[f]).join(' (') + ')';
+    if (this.displayFields.length === 1 && this.displayFields[0] === 'regione')
+      return this.displayFields.map(f => option[f]);
+    else
+      return this.displayFields.map(f => option[f]).join(' (') + ')';
   }
 
   hideDropdown() {

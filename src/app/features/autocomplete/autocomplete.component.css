@@ -4,12 +4,16 @@
 }
 
 .autocomplete-wrapper input {
-    width: 100%;
     padding: 0.5rem 0.6rem;
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 0.95rem;
-    box-sizing: border-box;
+}
+
+.autocomplete-wrapper input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.2);
 }
 
 .autocomplete-dropdown {

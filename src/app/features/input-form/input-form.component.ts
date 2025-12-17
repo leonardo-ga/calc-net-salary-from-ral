@@ -23,33 +23,8 @@ export class InputFormComponent {
 
   @ViewChild('resultSection') resultSection!: ElementRef;
 
-  regioni: string[] = [
-    'Abruzzo',
-    'Basilicata',
-    'Calabria',
-    'Campania',
-    'Emilia-Romagna',
-    'Friuli-Venezia Giulia',
-    'Lazio',
-    'Liguria',
-    'Lombardia',
-    'Marche',
-    'Molise',
-    'Piemonte',
-    'Puglia',
-    'Sardegna',
-    'Sicilia',
-    'Toscana',
-    'Trentino-Alto Adige',
-    'Umbria',
-    'Valle d\'Aosta',
-    'Veneto'
-  ];
+  regioni!: string[];
   comuni!: AddizionaleComunale[];
-  //Needed for mat-autocomplete
-  /*comuneCtrl = new FormControl<AddizionaleComunale | string | null>(null);
-  filteredComuni!: Observable<AddizionaleComunale[]>;
-  comune: AddizionaleComunale | undefined;*/
 
   salaryForm: FormGroup;
   result?: CalcOutput;
@@ -71,17 +46,11 @@ export class InputFormComponent {
       bonusVari: [0]
     });
 
+    this.http.get<string[]>('assets/tasse/regioni.json').subscribe(data => {
+      this.regioni = data;
+    });
     this.http.get<any[]>('assets/tasse/addizionale-comunale.json').subscribe(data => {
       this.comuni = data;
-      //Needed for mat-autocomplete
-      /*this.filteredComuni = this.comuneCtrl.valueChanges.pipe(
-        startWith(''),
-        map(value => {
-          if (!value) return '';
-          return typeof value === 'string' ? value : value.comune;
-        }),
-        map(name => name ? this.filterComuni(name) : this.comuni.slice())
-      );*/
     });
   }
 
@@ -96,21 +65,13 @@ export class InputFormComponent {
     }
   }
 
+  onRegioneSelected(regione: any) {
+    this.salaryForm.patchValue({ regione: regione.regione });
+  }
+
   onComuneSelected(comune: any) {
-    //Needed for mat-autocomplete
-    //this.comune = comune;
     this.salaryForm.patchValue({ comune: comune });
   }
-
-  //Needed for mat-autocomplete
-  /*displayComune(comune: any): string {
-    return comune ? (comune.comune + " (" + comune.provincia + ")") : '';
-  }
-
-  private filterComuni(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.comuni.filter(c => c.comune.toLowerCase().includes(filterValue));
-  }*/
 
   private scrollToResult() {
     if (this.resultSection) {
