@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ScaglioneAliquota } from '../models/scaglione-aliquota';
 import { TabellaAddizionaleRegionale } from '../models/tabella-addizionale-regionale';
 import { AddizionaleComunale } from '../models/addizionale-comunale';
+import { FamiliariACarico } from '../models/familiari-a-carico';
 
 @Injectable({
   providedIn: 'root'
@@ -64,11 +65,14 @@ export class CalculatorService {
     const cuneoFiscale2025 = this.calcolaCuneoFiscale2025(redditoImponibile);
 
     // 3.3. Detrazione familiari a carico
-    let detrazioneFamiliari = 0;
-    if (input.coniugeACarico) detrazioneFamiliari += 800;
-    if (input.figliACarico) detrazioneFamiliari += input.figliACarico * 950;
-    if (input.altriFamiliariACarico) detrazioneFamiliari += input.altriFamiliariACarico * 750;
+    const familiariACarico: FamiliariACarico = { 
+      coniugeACarico: input.coniugeACarico ?? false, 
+      figliACarico: input.figliACarico ?? 0, 
+      altriACarico: input.altriFamiliariACarico ?? 0
+    };
+    const detrazioneFamiliari = this.calcolaDetrazioneFamiliare(familiariACarico, redditoImponibile);
 
+    // 3.4. Detrazioni totali
     const detrazioni: number = detrazioneBase + detrazioneFamiliari
       + (isCuneoFiscale2025UnaDetrazione ? cuneoFiscale2025 : 0);
 
@@ -124,6 +128,51 @@ export class CalculatorService {
     else if (reddito <= 32000) return 1000;
     else if (reddito <= 40000) return -0.125 * reddito + 5000;
     return 0;
+  }
+
+  calcolaDetrazioneFamiliare(familiariACarico: FamiliariACarico, imponibile: number): number {
+    let detrazioneFamiliari = 0;
+    // 3.3.1 Coniuge a carico
+    if (familiariACarico.coniugeACarico) {
+      if (imponibile <= 15000)
+        detrazioneFamiliari += (800 - 110 * (imponibile/15000));
+      else if (imponibile <= 29000)
+        detrazioneFamiliari += 690;
+      else if (imponibile <= 29200)
+        detrazioneFamiliari += 700;
+      else if (imponibile <= 34700)
+        detrazioneFamiliari += 710;
+      else if (imponibile <= 35000)
+        detrazioneFamiliari += 720;
+      else if (imponibile <= 35100)
+        detrazioneFamiliari += 710;
+      else if (imponibile <= 35200)
+        detrazioneFamiliari += 700;
+      else if (imponibile <= 40000)
+        detrazioneFamiliari += 690;
+      else if (imponibile <= 80000)
+        detrazioneFamiliari += 690 * (2 - imponibile / 40000);
+    }
+
+    // 3.3.2 Figli a carico
+    if (familiariACarico.figliACarico) { 
+      const max: number = 950;
+      const reddInit: number = 95000;
+      const reddStep: number = 15000;
+      for (let i: number = 0; i < familiariACarico.figliACarico; i++) {
+        const c = reddInit + i * reddStep;
+        detrazioneFamiliari += max * (1 - imponibile / c);
+      }
+    }
+
+    // 3.3.3 Altri familiari a carico
+    if (familiariACarico.altriACarico) {
+      const max: number = 750;
+      const c: number = 80000;
+      detrazioneFamiliari += familiariACarico.altriACarico * max * (1 - imponibile / c);
+    }
+
+    return detrazioneFamiliari;
   }
 
   bonusIRPEF100(reddito: number): number {
