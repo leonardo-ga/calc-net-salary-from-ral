@@ -209,11 +209,11 @@ export class CalculatorService {
     if (comune.esenzione) {
       isEsenzione = true;
       esenzioneLimit = parseFloat(comune.esenzione);
-      scaglioni[0] = { limite: esenzioneLimit, aliquota: 0 };
+      scaglioni[numScaglioni] = { limite: esenzioneLimit, aliquota: 0 };
       numScaglioni++;
     }
     if (comune.aliquota_unica) {
-      scaglioni[1] = { limite: Infinity, aliquota: this.stringToPercToNum(comune.aliquota_unica) };
+      scaglioni[numScaglioni] = { limite: Infinity, aliquota: this.stringToPercToNum(comune.aliquota_unica) };
       numScaglioni++;
     } else {
       if (comune.aliquota1 && (!isEsenzione || (isEsenzione && 15000 > esenzioneLimit))) {
