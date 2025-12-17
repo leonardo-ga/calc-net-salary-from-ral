@@ -1,27 +1,72 @@
-# CalcNetSalaryFromRal
+# Calc Net Salary From RAL
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.4.
+An Angular web application to calculate **net salary** from your **RAL (Reddito Annuo Lordo / Annual Gross Salary)**. Designed to give Italian employees an estimate of their take-home pay after taxes and contributions.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* Input your RAL and get estimated **monthly and yearly net salary**.
+* Applies **Italian tax logic** (IRPEF, INPS contributions, local taxes).
+* Simple **Angular 17 front-end interface**.
+* Live calculations as you input values.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
 
-## Build
+* Node.js v16+
+* npm
+* Angular CLI (optional)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Steps
 
-## Running unit tests
+```bash
+git clone https://github.com/leonardo-ga/calc-net-salary-from-ral.git
+cd calc-net-salary-from-ral
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Run Development Server
 
-## Running end-to-end tests
+```bash
+ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Open your browser at `http://localhost:4200/`. The app reloads automatically when you change source files.
 
-## Further help
+### Build for Production
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng build
+```
+
+Build artifacts will be stored in `docs/`.
+
+## How It Works
+
+1. Enter your **annual gross salary (RAL)**.
+2. The app calculates:
+
+   * Employee **social security contributions (INPS)**
+   * **Income tax (IRPEF)** based on progressive rates
+   * Regional and municipal surcharges
+3. Displays **monthly and yearly net salary**.
+
+## Project Structure
+
+```
+src/
+├── app/           # Angular components & logic
+├── assets/        # Static assets
+└── index.html     # Entry point
+```
+
+## License
+
+MIT License © 2025 leonardo-ga
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
