@@ -39,11 +39,10 @@ export class InputFormComponent {
       aliquotaINPS: [0.0919],
       regione: ['', Validators.required],
       comune: [undefined, Validators.required],
+      bonusVari: [0],
       coniugeACarico: [false],
       figliACarico: [0],
-      figliDisabili: [0],
-      altriFamiliariACarico: [0],
-      bonusVari: [0]
+      altriFamiliariACarico: [0]
     });
 
     this.http.get<string[]>('assets/tasse/regioni.json').subscribe(data => {

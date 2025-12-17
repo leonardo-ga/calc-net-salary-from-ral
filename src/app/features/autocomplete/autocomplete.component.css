@@ -4,6 +4,7 @@
 }
 
 .autocomplete-wrapper input {
+    width: calc(100% - 1.2rem);
     padding: 0.5rem 0.6rem;
     border-radius: 6px;
     border: 1px solid #ccc;

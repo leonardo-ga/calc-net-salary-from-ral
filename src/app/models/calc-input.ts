@@ -6,9 +6,8 @@ export interface CalcInput {
     aliquotaINPS?: number;
     regione?: string;
     comune?: AddizionaleComunale;
+    bonusVari?: number;
     coniugeACarico?: boolean;
     figliACarico?: number;
-    figliDisabili?: number;
     altriFamiliariACarico?: number;
-    bonusVari?: number;
 }

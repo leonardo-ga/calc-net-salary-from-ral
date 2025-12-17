@@ -67,7 +67,6 @@ export class CalculatorService {
     let detrazioneFamiliari = 0;
     if (input.coniugeACarico) detrazioneFamiliari += 800;
     if (input.figliACarico) detrazioneFamiliari += input.figliACarico * 950;
-    if (input.figliDisabili) detrazioneFamiliari += input.figliDisabili * 400;
     if (input.altriFamiliariACarico) detrazioneFamiliari += input.altriFamiliariACarico * 750;
 
     const detrazioni: number = detrazioneBase + detrazioneFamiliari
