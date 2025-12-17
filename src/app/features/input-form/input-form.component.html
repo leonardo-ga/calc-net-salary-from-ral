@@ -29,7 +29,7 @@
 
 
     <div class="form-field">
-      <mat-form-field appearance="outline" class="full-width">
+      <!--<mat-form-field appearance="outline" class="full-width">
         <mat-label>Comune di residenza</mat-label>
 
         <input type="text" matInput [formControl]="comuneCtrl" [matAutocomplete]="auto" />
@@ -42,7 +42,11 @@
             {{ comune.comune }} ({{ comune.provincia }})
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
+      </mat-form-field>-->
+      <label>Comune</label>
+      <app-autocomplete [options]="comuni" [displayFields]="['comune', 'provincia']" placeholder="Inserisci comune..."
+        (selection)="onComuneSelected($event)">
+      </app-autocomplete>
     </div>
 
 

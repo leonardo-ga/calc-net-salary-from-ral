@@ -1,0 +1,9 @@
+<div class="autocomplete-wrapper">
+    <input type="text" [(ngModel)]="inputValue" (input)="onInputChange()" (focus)="showDropdown = true"
+        (blur)="hideDropdown()" [placeholder]="placeholder" />
+    <ul class="autocomplete-dropdown" *ngIf="showDropdown && filteredOptions.length">
+        <li *ngFor="let option of filteredOptions" (mousedown)="selectOption(option)">
+            {{ displayOption(option) }}
+        </li>
+    </ul>
+</div>

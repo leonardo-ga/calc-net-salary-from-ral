@@ -10,11 +10,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
 import { AddizionaleComunale } from '../../models/addizionale-comunale';
 import { map, Observable, startWith } from 'rxjs';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 
 @Component({
   selector: 'app-input-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule],
+  imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, AutocompleteComponent],
   templateUrl: './input-form.component.html',
   styleUrl: './input-form.component.css'
 })
@@ -45,9 +46,10 @@ export class InputFormComponent {
     'Veneto'
   ];
   comuni!: AddizionaleComunale[];
-  comuneCtrl = new FormControl<AddizionaleComunale | string | null>(null);
+  //Needed for mat-autocomplete
+  /*comuneCtrl = new FormControl<AddizionaleComunale | string | null>(null);
   filteredComuni!: Observable<AddizionaleComunale[]>;
-  comune: AddizionaleComunale | undefined;
+  comune: AddizionaleComunale | undefined;*/
 
   salaryForm: FormGroup;
   result?: CalcOutput;
@@ -61,7 +63,7 @@ export class InputFormComponent {
       mensilita: [13, [Validators.required]],
       aliquotaINPS: [0.0919],
       regione: ['', Validators.required],
-      comune: [this.comune, Validators.required],
+      comune: [undefined, Validators.required],
       coniugeACarico: [false],
       figliACarico: [0],
       figliDisabili: [0],
@@ -71,14 +73,15 @@ export class InputFormComponent {
 
     this.http.get<any[]>('assets/tasse/addizionale-comunale.json').subscribe(data => {
       this.comuni = data;
-      this.filteredComuni = this.comuneCtrl.valueChanges.pipe(
+      //Needed for mat-autocomplete
+      /*this.filteredComuni = this.comuneCtrl.valueChanges.pipe(
         startWith(''),
         map(value => {
           if (!value) return '';
           return typeof value === 'string' ? value : value.comune;
         }),
         map(name => name ? this.filterComuni(name) : this.comuni.slice())
-      );
+      );*/
     });
   }
 
@@ -94,19 +97,20 @@ export class InputFormComponent {
   }
 
   onComuneSelected(comune: any) {
-    this.comune = comune;
-    this.salaryForm.patchValue({ comune: this.comune });
+    //Needed for mat-autocomplete
+    //this.comune = comune;
+    this.salaryForm.patchValue({ comune: comune });
   }
 
-  displayComune(comune: any): string {
+  //Needed for mat-autocomplete
+  /*displayComune(comune: any): string {
     return comune ? (comune.comune + " (" + comune.provincia + ")") : '';
   }
-
 
   private filterComuni(value: string): any[] {
     const filterValue = value.toLowerCase();
     return this.comuni.filter(c => c.comune.toLowerCase().includes(filterValue));
-  }
+  }*/
 
   private scrollToResult() {
     if (this.resultSection) {

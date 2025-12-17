@@ -29,7 +29,8 @@
   color: #444;
 }
 
-.form-field input[type="number"] {
+.form-field input[type="number"],
+.form-field select {
   padding: 0.5rem 0.6rem;
   border-radius: 6px;
   border: 1px solid #ccc;
